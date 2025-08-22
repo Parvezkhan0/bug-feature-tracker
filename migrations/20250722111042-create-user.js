@@ -6,20 +6,21 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        primaryKey:true,
-        allowNull:false
+        primaryKey: true,
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false,
+        unique: true   // ✅ Make email unique
       },
       password: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
       },
       role: {
         type: Sequelize.ENUM('admin', 'manager', 'user'),
@@ -28,11 +29,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },

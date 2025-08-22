@@ -17,14 +17,11 @@ const create = asyncErrorHandler(async (req, res) => {
     });
   }
 
-  // Hash the password before saving
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+  // Remove manual hashing - let the model's beforeCreate hook handle it
   const user = await User.create({
     name,
     email,
-    password: hashedPassword, // Use hashed password
+    password, // Pass plain password - model will hash it
     role
   });
 
